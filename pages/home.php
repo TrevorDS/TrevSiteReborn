@@ -39,7 +39,7 @@ require ("../main/setup.php");
                 background-size: cover;
             }
 
-            #signup-banner {
+            .signup-banner {
                 color: white;
                 background-image: url(../imgs/signup-banner.jpg);
                 background-repeat: no-repeat;
