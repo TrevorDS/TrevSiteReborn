@@ -68,20 +68,10 @@ $PROFILE_BG_COLORS = array(
 ////////////////////////////////////////////////////////////////////////////////
 // DATA BASE LOG-IN INFORMATION!
 ////////////////////////////////////////////////////////////////////////////////
-
-$DB_URL = getenv('JAWSDB_URL');
-$DB_PARSE = parse_url($DB_URL);
-
-$DB_SERVER_NAME = $DB_PARSE['host'];
-$DB_USERNAME = $DB_PARSE['user'];
-$DB_PASSWORD = $DB_PARSE['pass'];
-$DB_NAME = ltrim($DB_PARSE['path'],'/');
-
-
-//$DB_SERVER_NAME = getenv('DB_SERVER_NAME');
-//$DB_USERNAME = getenv('DB_USERNAME');
-//$DB_PASSWORD = getenv('DB_PASSWORD');
-//$DB_NAME = getenv("DB_NAME");
+$DB_SERVER_NAME = getenv('DB_SERVER_NAME');
+$DB_USERNAME = getenv('DB_USERNAME');
+$DB_PASSWORD = getenv('DB_PASSWORD');
+$DB_NAME = getenv("DB_NAME");
 
 if ($LOCAL_MACHINE === true) {
     $DB_SERVER_NAME = "localhost";
