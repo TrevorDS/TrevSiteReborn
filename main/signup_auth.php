@@ -50,7 +50,7 @@ function ValidateInput($u, $e, $p1, $p2) {
     }
 
     // Username isn't blank
-    if ((strlen($u) > 0) && passed === true) {
+    if ((strlen($u) > 0) && $passed === true) {
 
         $total_spaces = 0;
         for ($i = 0; $i < strlen($u); $i++) {

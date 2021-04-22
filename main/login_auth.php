@@ -32,6 +32,49 @@ function ErrorMessage($msg) {
     SetErrorMessage($LOG_IN_ERROR_KEY, $msg);
 }
 
+function ValidateInput($u, $p) {
+
+    $passed = true;
+
+// Password isn't blank
+    if ((strlen($password) > 0) && $passed === true) {
+
+        $total_spaces = 0;
+        for ($i = 0; $i < strlen($password); $i++) {
+            if (substr($password, $i, $i) === " ") {
+                $total_spaces++;
+            }
+        }
+        if ($total_spaces === strlen($username)) {
+            ErrorMessage("Credentials do not match.");
+            $passed = false;
+        }
+    }
+
+// Username isn't blank
+    if ((strlen($username) > 0) && $passed === true) {
+
+        $total_spaces = 0;
+        for ($i = 0; $i < strlen($username); $i++) {
+            if (substr($username, $i, $i) === " ") {
+                $total_spaces++;
+            }
+        }
+
+        if ($total_spaces === strlen($username)) {
+            ErrorMessage("Credentials do not match.");
+            $passed = false;
+        }
+    }
+
+    if ($passed === false) {
+        global $CALLBACK;
+        header("Location: $CALLBACK");
+        exit;
+    }
+    
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // INIT
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,52 +95,11 @@ ErrorMessage(null);
 $username = FilterInput($_POST["username"]);
 $password = FilterInput($_POST["password"]);
 
-echo "Filter function is OK! <br>";
-
 ////////////////////////////////////////////////////////////////////////////////
 // RUN-TIME
 ////////////////////////////////////////////////////////////////////////////////
 // Validate Input
-$passed = true;
-
-// Password isn't blank
-if ((strlen($password) > 0) && passed === true) {
-
-    $total_spaces = 0;
-    for ($i = 0; $i < strlen($password); $i++) {
-        if (substr($password, $i, $i) === " ") {
-            $total_spaces++;
-        }
-    }
-    if ($total_spaces === strlen($username)) {
-        ErrorMessage("Credentials do not match.");
-        $passed = false;
-    }
-}
-
-// Username isn't blank
-if ((strlen($username) > 0) && passed === true) {
-
-    $total_spaces = 0;
-    for ($i = 0; $i < strlen($username); $i++) {
-        if (substr($username, $i, $i) === " ") {
-            $total_spaces++;
-        }
-    }
-
-    if ($total_spaces === strlen($username)) {
-        ErrorMessage("Credentials do not match.");
-        $passed = false;
-    }
-}
-
-if ($passed === false) {
-    global $CALLBACK;
-    header("Location: $CALLBACK");
-    exit;
-}
-
-echo "ATTEMPING CONNECTION... <br>";
+ValidateInput($username, $password);
 
 // Create connection
 global $DB_SERVER_NAME;
@@ -107,9 +109,6 @@ global $DB_NAME;
 
 $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
-echo "CONNECTED! Here's the data: <br>" . $conn;
-echo "<br>";
-
 // Check connection
 if ($conn->connect_error) {
     ErrorMessage("Connection refused.");
@@ -117,17 +116,11 @@ if ($conn->connect_error) {
     exit;
 }
 
-echo "Before running SQL... <br>";
-
 $username_sql = "SELECT * FROM $TABLE WHERE username='$username'";
 $username_result = $conn->query($username_sql);
 
-echo "Ran SQL! <br>";
-
 // Account exists
 if ($username_result->num_rows > 0) {
-
-    echo "There was an account! <br>";
 
     $row = $username_result->fetch_assoc();
 
@@ -147,20 +140,10 @@ if ($username_result->num_rows > 0) {
 // Account does not exist
 } elseif ($username_result->num_rows == 0) {
 
-    echo "There was NOT an account! <br>";
-
     ErrorMessage("Account does not exist!");
 }
 
-echo "Close Connection... <br>";
-
 $conn->close();
 
-echo "Closed. Heading back to $CALLBACK! <br>";
-
 header("Location: $CALLBACK");
-
-echo "Succes! Should have redirected...";
 exit;
-
-echo "This should NOT EVER run!";
