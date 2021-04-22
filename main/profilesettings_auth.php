@@ -10,12 +10,17 @@ require("../main/setup.php");
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
+global $DB_SERVER_NAME;
+global $DB_USERNAME;
+global $DB_PASSWORD;
+global $DB_NAME;
+
 $TABLE = "user_data";
 $UserID = $_POST["UserID"];
-$CALLBACK_PAGE = $PAGES . "profile?user=$UserID";
+$CALLBACK = $PAGES . "profile?user=$UserID";
 
 if (!isset($UserID) || $UserID === null) {
-    $CALLBACK_PAGE = $DEFAULT_CALLBACK_REDIRECT;
+    $CALLBACK = $DEFAULT_CALLBACK_REDIRECT;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -26,28 +31,24 @@ $NEW_BG_COLOR = $_POST["colors"];
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
 ////////////////////////////////////////////////////////////////////////////////
-
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // INIT
 ////////////////////////////////////////////////////////////////////////////////
 // POST VERIFICATION
 if (!$_POST) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // RUN-TIME
 ////////////////////////////////////////////////////////////////////////////////
-
 // Create connection
 $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
 // Check connection
 if ($conn->connect_error) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -56,9 +57,9 @@ $bio_sql = "UPDATE $TABLE SET profile_bg_color='" . $NEW_BG_COLOR . "' WHERE use
 
 // Run the SQL Command(s)
 $cheese = $conn->query($bio_sql);
-        
+
 $conn->close();
 
 
-header("Location: $CALLBACK_PAGE");
+header("Location: $CALLBACK");
 exit;

@@ -22,8 +22,8 @@ if (isset($_SESSION["UserDATA"])) {
         text-decoration: underline;
     }
 </style>
-<div id="sign-up" class="signup-banner">
-    <div class = "container col-xl-10 col-xxl-8 px-4 py-5 <?= $SIGN_UP_ELEMENT_ID ?>">
+<div id="sign-up" class="<?= $SIGN_UP_ELEMENT_ID ?>">
+    <div class = "container col-xl-10 col-xxl-8 px-4 py-5">
         <div class = "row align-items-center g-5 py-5">
             <div class = "col-lg-7 text-center text-lg-start">
                 <h1 class = "display-4 fw-bold lh-1 mb-3">Join Today.</h1>

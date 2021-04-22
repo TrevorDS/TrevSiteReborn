@@ -31,6 +31,9 @@ if (isset($_SESSION["UserDATA"])) {
                 width: 10em;
             }
         </style>
+
+        <!-- TrevSite CSS -->
+        <link href="../css/main.css" rel="stylesheet" />
     </head>
     <body>
 
@@ -82,6 +85,13 @@ if (isset($_SESSION["UserDATA"])) {
                     </div>
                 </div>
             </div>
+
+            <div style="width: fit-content; margin: auto; margin-top: 50em; margin-bottom: 5em;">
+                <h5>
+                    Try <a href="documentation">our guide</a> on learning how to become a Developer!
+                </h5>
+            </div>
+
 
         <?php } ?>
 

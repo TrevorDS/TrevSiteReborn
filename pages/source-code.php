@@ -9,6 +9,9 @@ require ("../main/setup.php");
         <title>TrevSite Reborn · Source</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
+        
+        <!-- TrevSite CSS -->
+        <link href="../css/main.css" rel="stylesheet" />
     </head>
     <body>
         

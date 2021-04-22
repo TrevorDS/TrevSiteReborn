@@ -25,11 +25,11 @@ $pages = array(
         "Filename" => "get-started",
         "Display" => "Get Started"
     ),
-//    array(
-//        "Extension" => "php",
-//        "Filename" => "documentation",
-//        "Display" => "Documentation"
-//    ),
+    array(
+        "Extension" => "php",
+        "Filename" => "documentation",
+        "Display" => "Documentation"
+    ),
 //    array(
 //        "Extension" => "php",
 //        "Filename" => "source-code",
