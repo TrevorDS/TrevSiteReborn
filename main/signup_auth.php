@@ -17,6 +17,11 @@ require("../main/setup.php");
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
+global $DB_SERVER_NAME;
+global $DB_USERNAME;
+global $DB_PASSWORD;
+global $DB_NAME;
+
 $TABLE = "users";
 $TABLE2 = "user_data";
 
@@ -46,14 +51,14 @@ function ValidateInput($u, $e, $p1, $p2) {
 
     // Username isn't blank
     if ((strlen($u) > 0) && passed === true) {
-        
+
         $total_spaces = 0;
         for ($i = 0; $i < strlen($u); $i++) {
             if (substr($u, $i, $i) === " ") {
                 $total_spaces++;
             }
         }
-        
+
         if ($total_spaces === strlen($u)) {
             ErrorMessage("Username is invalid!");
             $passed = false;
@@ -122,30 +127,28 @@ if ($username_result->num_rows > 0) {
 
         // Account is good to go!
     } elseif ($email_result->num_rows == 0) {
-        
+
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO $TABLE (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
 
         if ($conn->query($sql) === TRUE) {
-            
+
             $username_sql = "SELECT * FROM $TABLE WHERE username='$username'";
             $username_result = $conn->query($username_sql);
-            
+
             if ($username_result->num_rows > 0) {
-                
+
                 $row = $username_result->fetch_assoc();
-                
+
                 $data_sql = "INSERT INTO $TABLE2 (user_id) VALUES ('" . $row["user_id"] . "')";
                 $conn->query($data_sql);
-                
+
                 $user_id = $row["user_id"];
 
                 ErrorMessage(null);
                 LogIn($user_id, $username, $email);
-                
             }
-            
         } else {
             ErrorMessage("Error Creating Account.");
         }

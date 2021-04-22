@@ -15,6 +15,11 @@ require("../main/setup.php");
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
+global $DB_SERVER_NAME;
+global $DB_USERNAME;
+global $DB_PASSWORD;
+global $DB_NAME;
+
 $TABLE = "user_data";
 $UserID = $_POST["UserID"];
 $CALLBACK = $PAGES . "profile?user=$UserID";
@@ -121,7 +126,6 @@ if ($uploadOk == 0) {
         }
 
         $conn->close();
-        
     } else {
 
         ErrorMessage("Sorry, there was an error uploading your file.");

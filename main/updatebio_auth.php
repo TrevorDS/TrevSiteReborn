@@ -10,6 +10,11 @@ require("../main/setup.php");
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
+global $DB_SERVER_NAME;
+global $DB_USERNAME;
+global $DB_PASSWORD;
+global $DB_NAME;
+
 $TABLE = "user_data";
 $UserID = $_POST["UserID"];
 $CALLBACK = $PAGES . "profile?user=$UserID";
@@ -28,9 +33,9 @@ $NEW_BIO = FilterInput($_POST["updateBio"]);
 ////////////////////////////////////////////////////////////////////////////////
 
 function ValidateInput($bio) {
-    
+
     global $CALLBACK;
-    
+
     if ($bio === "" || strlen($bio) === 0) {
         header("Location: $CALLBACK");
         exit;
@@ -51,7 +56,6 @@ ValidateInput($NEW_BIO);
 ////////////////////////////////////////////////////////////////////////////////
 // RUN-TIME
 ////////////////////////////////////////////////////////////////////////////////
-
 // Create connection
 $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
@@ -65,7 +69,7 @@ $sql = "UPDATE $TABLE SET bio='" . $NEW_BIO . "' WHERE user_id='$UserID'";
 
 // Run the SQL Command
 $conn->query($sql);
-        
+
 $conn->close();
 
 
