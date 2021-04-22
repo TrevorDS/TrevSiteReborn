@@ -24,7 +24,9 @@ $TABLE = "users";
 ////////////////////////////////////////////////////////////////////////////////
 // VARIABLES
 ////////////////////////////////////////////////////////////////////////////////
-$CALLBACK = ($PAGES . "log-in.php");
+$CALLBACK = ($PAGES . "log-in");
+
+echo $CALLBACK . "<br>";
 
 ////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -94,6 +96,8 @@ if (isset($_POST["LogOut"])) {
 
 ErrorMessage(null);
 
+echo "INIT <br>";
+
 $username = FilterInput($_POST["username"]);
 $password = FilterInput($_POST["password"]);
 
@@ -103,8 +107,13 @@ $password = FilterInput($_POST["password"]);
 // Validate Input
 ValidateInput($username, $password);
 
+echo "ATTEMPING CONNECTION... <br>";
+
 // Create connection
 $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
+
+echo "CONNECTED! Here's the data: <br>" . $conn;
+echo "<br>";
 
 // Check connection
 if ($conn->connect_error) {
@@ -113,11 +122,17 @@ if ($conn->connect_error) {
     exit;
 }
 
+echo "Before running SQL... <br>";
+
 $username_sql = "SELECT * FROM $TABLE WHERE username='$username'";
 $username_result = $conn->query($username_sql);
 
+echo "Ran SQL! <br>";
+
 // Account exists
 if ($username_result->num_rows > 0) {
+    
+    echo "There was an account! <br>";
 
     $row = $username_result->fetch_assoc();
 
@@ -136,11 +151,21 @@ if ($username_result->num_rows > 0) {
 
 // Account does not exist
 } elseif ($username_result->num_rows == 0) {
+    
+    echo "There was NOT an account! <br>";
 
     ErrorMessage("Account does not exist!");
 }
 
+echo "Close Connection... <br>";
+
 $conn->close();
 
+echo "Closed. Heading back to $CALLBACK! <br>";
+
 header("Location: $CALLBACK");
+
+echo "Succes! Should have redirected...";
 exit;
+
+echo "This should NOT EVER run!";
