@@ -83,8 +83,6 @@ if (isset($_POST["LogOut"])) {
 
 ErrorMessage(null);
 
-echo "INIT <br>";
-
 $username = FilterInput($_POST["username"]);
 $password = FilterInput($_POST["password"]);
 
@@ -94,7 +92,7 @@ echo "Filter function is OK! <br>";
 // RUN-TIME
 ////////////////////////////////////////////////////////////////////////////////
 // Validate Input
-ValidateInput($username, $password);
+//ValidateInput($username, $password);
 
 echo "ATTEMPING CONNECTION... <br>";
 
