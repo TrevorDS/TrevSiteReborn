@@ -34,7 +34,7 @@ function ErrorMessage($msg) {
     SetErrorMessage($LOG_IN_ERROR_KEY, $msg);
 }
 
-function ValidateInput($u, $p) {
+function ValidateInput($CALLBACK, $u, $p) {
 
     $passed = true;
 
@@ -71,7 +71,6 @@ function ValidateInput($u, $p) {
     }
 
     if ($passed === false) {
-        global $CALLBACK;
         header("Location: $CALLBACK");
         exit;
     }
@@ -96,10 +95,6 @@ ErrorMessage(null);
 
 echo "INIT <br>";
 
-var_dump($_POST);
-echo FilterInput($_POST["username"]);
-echo FilterInput($_POST["password"]);
-
 $username = FilterInput($_POST["username"]);
 $password = FilterInput($_POST["password"]);
 
@@ -107,7 +102,7 @@ $password = FilterInput($_POST["password"]);
 // RUN-TIME
 ////////////////////////////////////////////////////////////////////////////////
 // Validate Input
-ValidateInput($username, $password);
+ValidateInput($CALLBACK, $username, $password);
 
 echo "ATTEMPING CONNECTION... <br>";
 
