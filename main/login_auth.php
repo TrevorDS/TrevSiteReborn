@@ -96,6 +96,10 @@ ErrorMessage(null);
 
 echo "INIT <br>";
 
+var_dump($_POST);
+echo FilterInput($_POST["username"]);
+echo FilterInput($_POST["password"]);
+
 $username = FilterInput($_POST["username"]);
 $password = FilterInput($_POST["password"]);
 
