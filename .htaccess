@@ -1,0 +1,23 @@
+# Very special thanks to Dani Krossing for his video on how to do this:
+# https://www.youtube.com/watch?v=-6LyG9I-FPc
+
+# mod_rewrite starts here
+RewriteEngine on
+
+IndexIgnore *
+
+# Deny Access to folders
+Options All -Indexes
+
+# Denying access to "hidden" files (. files)
+RedirectMatch 403 /\..*$
+
+# does not apply to existing directories, meaning that if the folder exists on 
+# the server then don't change anything and don't run the rule!
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Check for file in directory with .php extension
+RewriteCond %{REQUEST_FILENAME}\.php -f
+
+# Here we actually show the page that has the .php extension
+RewriteRule ^(.*)$ $1.php [NC,L]
