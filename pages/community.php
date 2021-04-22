@@ -1,6 +1,12 @@
 <?php
 require("../SITE_CONFIG.php");
 require ("../main/setup.php");
+
+echo $DB_SERVER_NAME;
+echo $DB_USERNAME;
+echo $DB_PASSWORD;
+echo $DB_NAME;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,6 +40,8 @@ require ("../main/setup.php");
 
                 // Create connection
                 $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
+                
+                var_dump($conn);
 
                 // Check connection
                 if ($conn->connect_error) {
