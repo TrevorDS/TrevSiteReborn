@@ -1,0 +1,19 @@
+/* 
+    Created on : Apr 19, 2021, 1:53:23 PM
+    Author     : Trevor
+*/
+
+/* MAIN Body tags */
+body {
+    background-color: lightgray;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+}
+
+/* Default Footer */
+.footer-icon-logo {
+    height: 2em;
+    width: 2em;
+}
