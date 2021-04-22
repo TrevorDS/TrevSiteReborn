@@ -14,11 +14,6 @@ include("../main/setup.php");
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
-global $DB_SERVER_NAME;
-global $DB_USERNAME;
-global $DB_PASSWORD;
-global $DB_NAME;
-
 $TABLE = "users";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,38 +27,6 @@ $CALLBACK = ($PAGES . "log-in");
 function ErrorMessage($msg) {
     global $LOG_IN_ERROR_KEY;
     SetErrorMessage($LOG_IN_ERROR_KEY, $msg);
-}
-
-function ValidateInput($u, $p) {
-
-    $passed = true;
-
-    // Password isn't blank
-    if ((strlen($p) > 0) && passed === true) {
-
-        $total_spaces = 0;
-        for ($i = 0; $i < strlen($p); $i++) {
-            if (substr($p, $i, $i) === " ") {
-                $total_spaces++;
-            }
-        }
-        if ($total_spaces === strlen($u)) { ErrorMessage("Credentials do not match."); $passed = false; }
-    }
-
-    // Username isn't blank
-    if ((strlen($u) > 0) && passed === true) {
-
-        $total_spaces = 0;
-        for ($i = 0; $i < strlen($u); $i++) {
-            if (substr($u, $i, $i) === " ") {
-                $total_spaces++;
-            }
-        }
-
-        if ($total_spaces === strlen($u)) { ErrorMessage("Credentials do not match."); $passed = false; }
-    }
-
-    if ($passed === false) { global $CALLBACK; header("Location: $CALLBACK"); exit; }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -92,11 +55,53 @@ echo "Filter function is OK! <br>";
 // RUN-TIME
 ////////////////////////////////////////////////////////////////////////////////
 // Validate Input
-//ValidateInput($username, $password);
+$passed = true;
+
+// Password isn't blank
+if ((strlen($password) > 0) && passed === true) {
+
+    $total_spaces = 0;
+    for ($i = 0; $i < strlen($password); $i++) {
+        if (substr($password, $i, $i) === " ") {
+            $total_spaces++;
+        }
+    }
+    if ($total_spaces === strlen($username)) {
+        ErrorMessage("Credentials do not match.");
+        $passed = false;
+    }
+}
+
+// Username isn't blank
+if ((strlen($username) > 0) && passed === true) {
+
+    $total_spaces = 0;
+    for ($i = 0; $i < strlen($username); $i++) {
+        if (substr($username, $i, $i) === " ") {
+            $total_spaces++;
+        }
+    }
+
+    if ($total_spaces === strlen($username)) {
+        ErrorMessage("Credentials do not match.");
+        $passed = false;
+    }
+}
+
+if ($passed === false) {
+    global $CALLBACK;
+    header("Location: $CALLBACK");
+    exit;
+}
 
 echo "ATTEMPING CONNECTION... <br>";
 
 // Create connection
+global $DB_SERVER_NAME;
+global $DB_USERNAME;
+global $DB_PASSWORD;
+global $DB_NAME;
+
 $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
 echo "CONNECTED! Here's the data: <br>" . $conn;
@@ -118,7 +123,7 @@ echo "Ran SQL! <br>";
 
 // Account exists
 if ($username_result->num_rows > 0) {
-    
+
     echo "There was an account! <br>";
 
     $row = $username_result->fetch_assoc();
@@ -138,7 +143,7 @@ if ($username_result->num_rows > 0) {
 
 // Account does not exist
 } elseif ($username_result->num_rows == 0) {
-    
+
     echo "There was NOT an account! <br>";
 
     ErrorMessage("Account does not exist!");
