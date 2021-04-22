@@ -18,6 +18,9 @@ require ("../main/setup.php");
                 padding: 20px;
             }
         </style>
+        
+        <!-- TrevSite CSS -->
+        <link href="../css/main.css" rel="stylesheet" />
     </head>
     <body>
 
