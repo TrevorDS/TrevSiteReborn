@@ -2,6 +2,13 @@
 
 require("../SITE_CONFIG.php");
 require("../main/setup.php");
+
+var_dump($_POST);
+echo $DB_SERVER_NAME;
+echo $DB_USERNAME;
+echo $DB_PASSWORD;
+echo $DB_NAME;
+
 /*
  * Written by Trevor
  * 4/19/21
