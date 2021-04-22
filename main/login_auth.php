@@ -19,7 +19,7 @@ $TABLE = "users";
 ////////////////////////////////////////////////////////////////////////////////
 // VARIABLES
 ////////////////////////////////////////////////////////////////////////////////
-$CALLBACK_PAGE = ($PAGES . "log-in.php");
+$CALLBACK = ($PAGES . "log-in.php");
 
 ////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -66,8 +66,8 @@ function ValidateInput($u, $p) {
     }
 
     if ($passed === false) {
-        global $CALLBACK_PAGE;
-        header("Location: $CALLBACK_PAGE");
+        global $CALLBACK;
+        header("Location: $CALLBACK");
         exit;
     }
 }
@@ -77,7 +77,7 @@ function ValidateInput($u, $p) {
 ////////////////////////////////////////////////////////////////////////////////
 // POST VERIFICATION
 if (!$_POST) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -104,7 +104,7 @@ $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 // Check connection
 if ($conn->connect_error) {
     ErrorMessage("Connection refused.");
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -137,5 +137,5 @@ if ($username_result->num_rows > 0) {
 
 $conn->close();
 
-header("Location: $CALLBACK_PAGE");
+header("Location: $CALLBACK");
 exit;

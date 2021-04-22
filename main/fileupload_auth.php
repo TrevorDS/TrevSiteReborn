@@ -17,10 +17,10 @@ require("../main/setup.php");
 ////////////////////////////////////////////////////////////////////////////////
 $TABLE = "user_data";
 $UserID = $_POST["UserID"];
-$CALLBACK_PAGE = $PAGES . "profile?user=$UserID";
+$CALLBACK = $PAGES . "profile?user=$UserID";
 
 if (!isset($UserID) || $UserID === null) {
-    $CALLBACK_PAGE = $DEFAULT_CALLBACK_REDIRECT;
+    $CALLBACK = $DEFAULT_CALLBACK_REDIRECT;
 }
 
 $target_dir = $FILE_UPLOADS_PROFILE_PICTURES;
@@ -46,7 +46,7 @@ function ErrorMessage($msg) {
 ////////////////////////////////////////////////////////////////////////////////
 // POST VERIFICATION
 if (!$_POST) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -109,7 +109,7 @@ if ($uploadOk == 0) {
         // Check connection
         if ($conn->connect_error) {
             ErrorMessage("Connection refused.");
-            header("Location: $CALLBACK_PAGE");
+            header("Location: $CALLBACK");
             exit;
         }
 
@@ -129,5 +129,5 @@ if ($uploadOk == 0) {
 }
 
 
-header("Location: $CALLBACK_PAGE");
+header("Location: $CALLBACK");
 exit;

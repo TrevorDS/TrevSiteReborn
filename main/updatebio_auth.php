@@ -12,10 +12,10 @@ require("../main/setup.php");
 ////////////////////////////////////////////////////////////////////////////////
 $TABLE = "user_data";
 $UserID = $_POST["UserID"];
-$CALLBACK_PAGE = $PAGES . "profile?user=$UserID";
+$CALLBACK = $PAGES . "profile?user=$UserID";
 
 if (!isset($UserID) || $UserID === null) {
-    $CALLBACK_PAGE = $DEFAULT_CALLBACK_REDIRECT;
+    $CALLBACK = $DEFAULT_CALLBACK_REDIRECT;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,10 +29,10 @@ $NEW_BIO = FilterInput($_POST["updateBio"]);
 
 function ValidateInput($bio) {
     
-    global $CALLBACK_PAGE;
+    global $CALLBACK;
     
     if ($bio === "" || strlen($bio) === 0) {
-        header("Location: $CALLBACK_PAGE");
+        header("Location: $CALLBACK");
         exit;
     }
 }
@@ -42,7 +42,7 @@ function ValidateInput($bio) {
 ////////////////////////////////////////////////////////////////////////////////
 // POST VERIFICATION
 if (!$_POST) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -57,7 +57,7 @@ $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
 // Check connection
 if ($conn->connect_error) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -69,5 +69,5 @@ $conn->query($sql);
 $conn->close();
 
 
-header("Location: $CALLBACK_PAGE");
+header("Location: $CALLBACK");
 exit;

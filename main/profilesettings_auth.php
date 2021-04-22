@@ -12,10 +12,10 @@ require("../main/setup.php");
 ////////////////////////////////////////////////////////////////////////////////
 $TABLE = "user_data";
 $UserID = $_POST["UserID"];
-$CALLBACK_PAGE = $PAGES . "profile?user=$UserID";
+$CALLBACK = $PAGES . "profile?user=$UserID";
 
 if (!isset($UserID) || $UserID === null) {
-    $CALLBACK_PAGE = $DEFAULT_CALLBACK_REDIRECT;
+    $CALLBACK = $DEFAULT_CALLBACK_REDIRECT;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ $NEW_BG_COLOR = $_POST["colors"];
 ////////////////////////////////////////////////////////////////////////////////
 // POST VERIFICATION
 if (!$_POST) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -47,7 +47,7 @@ $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
 // Check connection
 if ($conn->connect_error) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -60,5 +60,5 @@ $cheese = $conn->query($bio_sql);
 $conn->close();
 
 
-header("Location: $CALLBACK_PAGE");
+header("Location: $CALLBACK");
 exit;

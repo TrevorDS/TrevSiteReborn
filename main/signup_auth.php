@@ -23,8 +23,8 @@ $TABLE2 = "user_data";
 ////////////////////////////////////////////////////////////////////////////////
 // VARIABLES
 ////////////////////////////////////////////////////////////////////////////////
-$CALLBACK_PAGE = $_POST["CallbackPage"] ?? $DEFAULT_CALLBACK_REDIRECT;
-$CALLBACK_PAGE .= "#" . $SIGN_UP_ELEMENT_ID;
+$CALLBACK = $_POST["CallbackPage"] ?? $DEFAULT_CALLBACK_REDIRECT;
+$CALLBACK .= "#" . $SIGN_UP_ELEMENT_ID;
 
 ////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -61,8 +61,8 @@ function ValidateInput($u, $e, $p1, $p2) {
     }
 
     if ($passed === false) {
-        global $CALLBACK_PAGE;
-        header("Location: $CALLBACK_PAGE");
+        global $CALLBACK;
+        header("Location: $CALLBACK");
         exit;
     }
 }
@@ -72,7 +72,7 @@ function ValidateInput($u, $e, $p1, $p2) {
 ////////////////////////////////////////////////////////////////////////////////
 // POST VERIFICATION
 if (!$_POST) {
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -95,7 +95,7 @@ $conn = new mysqli($DB_SERVER_NAME, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 // Check connection
 if ($conn->connect_error) {
     ErrorMessage("Connection refused.");
-    header("Location: $CALLBACK_PAGE");
+    header("Location: $CALLBACK");
     exit;
 }
 
@@ -154,5 +154,5 @@ if ($username_result->num_rows > 0) {
 
 $conn->close();
 
-header("Location: $CALLBACK_PAGE");
+header("Location: $CALLBACK");
 exit;
