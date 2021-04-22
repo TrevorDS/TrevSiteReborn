@@ -1,7 +1,7 @@
 <?php
 
-require("../SITE_CONFIG.php");
-require("../main/setup.php");
+include("../SITE_CONFIG.php");
+include("../main/setup.php");
 /*
  * Written by Trevor
  * 4/19/21
@@ -25,8 +25,6 @@ $TABLE = "users";
 // VARIABLES
 ////////////////////////////////////////////////////////////////////////////////
 $CALLBACK = ($PAGES . "log-in");
-
-echo $CALLBACK . "<br>";
 
 ////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
