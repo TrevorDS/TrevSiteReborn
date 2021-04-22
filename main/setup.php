@@ -117,10 +117,8 @@ function GetProfileDataForUser($currID, $db_conn = null) {
     $userProfileDATA = GetUserProfileDATA($currID);
     $profileDATA = GetProfileDATA($db_conn, $currID);
 
-    global $PROFILE_DEFAULT_PROFILE_PICTURE;
-    global $PROFILE_DEFAULT_BIO;
-    global $PROFILE_DEFAULT_BG_COLOR;
-    global $FILE_UPLOADS_PROFILE_PICTURES;
+    global $PROFILE_DEFAULT_PROFILE_PICTURE; global $PROFILE_DEFAULT_BIO;
+    global $PROFILE_DEFAULT_BG_COLOR; global $FILE_UPLOADS_PROFILE_PICTURES;
 
     $DATA = [];
 

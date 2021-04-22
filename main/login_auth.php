@@ -34,7 +34,7 @@ function ErrorMessage($msg) {
     SetErrorMessage($LOG_IN_ERROR_KEY, $msg);
 }
 
-function ValidateInput($CALLBACK, $u, $p) {
+function ValidateInput($u, $p) {
 
     $passed = true;
 
@@ -47,11 +47,7 @@ function ValidateInput($CALLBACK, $u, $p) {
                 $total_spaces++;
             }
         }
-
-        if ($total_spaces === strlen($u)) {
-            ErrorMessage("Credentials do not match.");
-            $passed = false;
-        }
+        if ($total_spaces === strlen($u)) { ErrorMessage("Credentials do not match."); $passed = false; }
     }
 
     // Username isn't blank
@@ -64,16 +60,10 @@ function ValidateInput($CALLBACK, $u, $p) {
             }
         }
 
-        if ($total_spaces === strlen($u)) {
-            ErrorMessage("Credentials do not match.");
-            $passed = false;
-        }
+        if ($total_spaces === strlen($u)) { ErrorMessage("Credentials do not match."); $passed = false; }
     }
 
-    if ($passed === false) {
-        header("Location: $CALLBACK");
-        exit;
-    }
+    if ($passed === false) { global $CALLBACK; header("Location: $CALLBACK"); exit; }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -98,11 +88,13 @@ echo "INIT <br>";
 $username = FilterInput($_POST["username"]);
 $password = FilterInput($_POST["password"]);
 
+echo "Filter function is OK! <br>";
+
 ////////////////////////////////////////////////////////////////////////////////
 // RUN-TIME
 ////////////////////////////////////////////////////////////////////////////////
 // Validate Input
-ValidateInput($CALLBACK, $username, $password);
+ValidateInput($username, $password);
 
 echo "ATTEMPING CONNECTION... <br>";
 
