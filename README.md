@@ -2,7 +2,10 @@
 
 **New beginnings...**
 
-A website made by Trevor (Trayeus) made from the ground up. TrevSite: Reborn pushes the narrative for Trevor's current knowledge and structure of PHP coding and website structure. It will be a full-fledged website ready to use when finished!
+A website made by Trevor (Trayeus) made from the ground up. TrevSite: Reborn pushes the narrative for Trevor's current knowledge and structure of PHP coding and website structure. The website is stable in version 1.0.0 as of 4/22/2021.
+
+Check it out here:
+https://trevsite-reborn.herokuapp.com/
 
 **NOTE**
 <br>
